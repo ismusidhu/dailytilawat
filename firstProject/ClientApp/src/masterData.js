@@ -1,31 +1,39 @@
 ﻿export const qasaaid = [{
+    id: 'ya_sayyeda',
     name: 'Ya Sayyeda',
-    baitCount: 52,
+    totalBaitCount: 52,
     hasFehwa: true
 }, {
+    id: 'fulkul_husain',
     name: 'Fulkul Husain',
-    baitCount: 52,
+    totalBaitCount: 52,
     hasFehwa: true
 }, {
+    id: 'zikrul_husain',
     name: 'Zikrul Husain',
-    baitCount: 33,
+    totalBaitCount: 33,
     hasFehwa: true
 }, {
-    name: 'Munajaat 1443',
-    baitCount: 52,
+    id: 'munajaat_sms_1443',
+    name: 'Munajaat SMS 1443',
+    totalBaitCount: 52,
     hasFehwa: true
 }];
 
 export const userConfig = {
-    dailyTilaawat: [{
-        name: 'Ya Sayyeda',
-        baitCount: 1,
+    currentBait: 2,
+    currentQasida: 'fulkul_husain',
+    dailyTilaawats: [{
+        qasida: 'fulkul_husain',
+        dailyBaitCount: 1,
         showFehwa: true,
-        currentBait: 4
+        repeatFirstBait: 1,
+        repeatLastBait: 51
     }, {
-        name: 'Fulkul Husain',
-        baitCount: 1,
+        qasida: 'ya_sayyeda',
+        dailyBaitCount: 1,
         showFehwa: true,
-        currentBait: 3
+        repeatFirstBait: 1, // 0 or false if not to be repeated daily
+        repeatLastBait: 52 // 0 or false if not to be repeated daily
     }]
 }
