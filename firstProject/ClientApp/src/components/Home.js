@@ -6,16 +6,51 @@ export class Home extends Component {
   constructor(props) {
     super(props);
 
-    let dailyTilaawats = (localStorage.getItem('config') || userConfig).dailyTilaawats
-    let { name: qasida, baitCount, showFehwa, currentBait, repeatFirstBait } = dailyTilaawats[0];
+    let config = (localStorage.getItem('config') || userConfig);
+    let {dailyTilaawats, currentQasidaIndex} = config;
+
+    // let { qasidaName: qasida, dailyBaitCount, currentBait, showFehwa, repeatFirstBait, repeatLastBait} = dailyTilaawats[currentQasidaIndex];
+    let dailyTilaawat = dailyTilaawats[currentQasidaIndex];
+    
     this.state = {
-      qasida,
-      bait: currentBait
+      qasida: dailyTilaawat.qasida,
+      bait: dailyTilaawat.currentBait,
+      showFehwa: dailyTilaawat.showFehwa
     };
+
+    // let qasida = qasaaid.find(q => q.id === dailyTilaawat.qasidaName);
+
+    // qasida.totalBaitCount % dailyTilaawat.currentBait
+    // config.currentQasidaIndex = (dailyTilaawats.length - 1 < currentQasidaIndex) ? config.currentQasidaIndex + 1: 0;
+
   }
 
   // Do mod(%) using total bait, daily bait, current bait to find out how many bait are left in current iteration for the current qasida.
   // then keep moving next and/or previous.
+  // generateOrder(qasaidMaster, userConfig) {
+  //   let orderBaits = [];
+  //   let iterationIndex = 0;
+  //   let totalIterations = 30;
+  //   let { currentBait, currentQasida, dailyTilaawats } = userConfig;
+  //   let currentQasidaIndex = dailyTilaawats.indexOf(f => f.id === currentQasida);
+
+  //   // let totalBaitOfCurrentQasida = qasaidMaster.find(f => f.id === currentQasida)?.totalBaitCount;
+  //   do {
+  //     let dailyBaitCountOfCurrentQasida = dailyTilaawats.find(f => f.id === currentQasida)?.dailyBaitCount;
+  //     let todaysBaitUpto =  (~~(currentBait/dailyBaitCountOfCurrentQasida) * dailyBaitCountOfCurrentQasida) + dailyBaitCountOfCurrentQasida;
+
+  //     for (let baitIndex = currentBait; baitIndex <= todaysBaitUpto; baitIndex++) {
+  //       orderBaits.push({
+  //         qasida: currentQasida,
+  //         baitNumber: baitIndex
+  //       });
+  //       iterationIndex++;
+  //     }
+  //     currentQasidaIndex++;
+  //     currentQasida = dailyTilaawats[currentQasidaIndex].qasida;
+  //   } while(iterationIndex <= totalIterations)
+  // }
+
   // below logic is not correct/optimized. Can be discarded or kept for records.
 
 
@@ -37,14 +72,15 @@ export class Home extends Component {
   // }
 
 
-  getNextBaitNumber(bait, qasida) {
-    let objQasida = qasaaid.find(f => f.name === qasida);
-    if(objQasida.baitCount <= bait) {
-      return 1;
-    } else {
-      return bait + 1;
-    }
-  }
+  // getNextBaitNumber(bait, qasida) {
+  //   let objQasida = qasaaid.find(f => f.name === qasida);
+  //   if (objQasida.baitCount <= bait) {
+  //     return 1;
+  //   } else {
+  //     return bait + 1;
+  //   }
+  // }
+
   onNext() {
     // let dailyTilaawats = (localStorage.getItem('config') || userConfig).dailyTilaawats
     // let currentIndex = dailyTilaawats.findIndex(f => f.currentBait === this.state.bait && f.qasida === this.state.qasida)
@@ -52,16 +88,17 @@ export class Home extends Component {
     // let nextTilawatIndex = 
     // if ()
 
-
   }
   render() {
-      let { qasida, bait } = this.state;
-      qasida = qasida.toLowerCase().replace(' ', '_');
-      let src = `/abyaat/${qasida}/${qasida}-${bait}.png`;
+    let { qasida, bait, showFehwa } = this.state;
+    qasida = qasida.toLowerCase().replace(' ', '_');
+    let src = `/abyaat/${qasida}/${qasida}-${bait}.png`;
+    let fehvaSrc = `/abyaat/${qasida}/${qasida}-${bait}-fehva.png`;
     return (
-        <div>
-            <img alt="band" src={src} />
-            <button onClick={this.onNext()}>Next</button>
+      <div>
+        <img alt="band" src={src} />
+        {showFehwa && <img alt="band-fehva" src={fehvaSrc} />}
+        <button onClick={this.onNext()}>Next</button>
       </div>
     );
   }

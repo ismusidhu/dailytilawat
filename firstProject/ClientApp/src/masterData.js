@@ -21,19 +21,20 @@
 }];
 
 export const userConfig = {
-    currentBait: 2,
-    currentQasida: 'fulkul_husain',
+    currentQasidaIndex: 0,
     dailyTilaawats: [{
         qasida: 'fulkul_husain',
-        dailyBaitCount: 1,
+        dailyBaitCount: 2,
+        currentBait: 2,
         showFehwa: true,
         repeatFirstBait: 1,
         repeatLastBait: 51
     }, {
         qasida: 'ya_sayyeda',
-        dailyBaitCount: 1,
+        dailyBaitCount: 3,
+        currentBait: 2,
         showFehwa: true,
         repeatFirstBait: 1, // 0 or false if not to be repeated daily
         repeatLastBait: 52 // 0 or false if not to be repeated daily
     }]
-}
+};
